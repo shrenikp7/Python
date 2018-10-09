@@ -14,7 +14,7 @@ SOCKET = '/mysql/data/data.sock'
 
 connect = mysqldb.connect(host = HOST, user = USER, passwd = CODE, unix_socket = SOCKET)
 cursor = connect.cursor()
-cursor.execute("select distinct(table_schema) FROM information_schema.TABLES where table_schema not in ('information_schema','sys','mysql','performance_schema','test1')")
+cursor.execute("select distinct(table_schema) FROM information_schema.TABLES where table_schema not in ('information_schema','sys','mysql','performance_schema')")
 data = cursor.fetchall()
 with open('/mysql/admin/scripts/dblist.txt', 'w') as f:
     for row in data:
