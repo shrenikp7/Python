@@ -1,0 +1,29 @@
+#!/bin/python
+import MySQLdb as mysqldb
+#import sqlite3
+import os
+import time
+import datetime
+#import pipes
+import sys
+
+HOST = 'localhost'
+USER = '<id>'
+CODE = '<code>'
+SOCKET = '/mysql/data/data.sock'
+
+connect = mysqldb.connect(host = HOST, user = USER, passwd = CODE, unix_socket = SOCKET)
+cursor = connect.cursor()
+cursor.execute("select distinct(table_schema) FROM information_schema.TABLES where table_schema not in ('information_schema','sys','mysql','performance_schema','test1')")
+data = cursor.fetchall()
+with open('/mysql/admin/scripts/dblist.txt', 'w') as f:
+    for row in data:
+        print row [0]
+        f.write("%s\n" % str(row [0]))
+cursor.close()
+connect.close()
+sys.exit()
+
+Ref.: 
+https://stackoverflow.com/questions/10250830/python-writing-results-out-to-a-file
+https://docs.python.org/3/tutorial/inputoutput.html
