@@ -11,7 +11,7 @@ DBLIST = '/mysql/admin/scripts/dblist.txt'
 HOST = 'localhost'
 USER = '<id>'
 CODE = '<code>'
-SOCKET = '/data/ghlpoc/data/ghlpoc.sock'
+SOCKET = '/data/<db_name>/data/<db_name>.sock'
 
 connect = MySQLdb.connect(host = HOST, user = USER, passwd = CODE, unix_socket = SOCKET)
 cursor = connect.cursor()
@@ -32,11 +32,11 @@ for db in dbcontent:
         for tab in tabcontent:
                 today = datetime.date.today().strftime("%Y%m%d")
                 days_before = (datetime.datetime.today()-datetime.timedelta(days=90)).strftime("%Y%m%d%H%M%S")
-                p=open('/mysql/admin/scripts/dbdir/<db_name>/'+ tab +'.txt', 'w')
+                #p=open('/mysql/admin/scripts/dbdir/VLA_4440/'+ tab +'.txt', 'w')
+                p=open('/mysql/admin/scripts/dbdir/'+db+'/'+ tab +'.txt', 'w')
                 #### Note:
                 #Following statement will be used when tables for all databases are available
-                #sql='SELECT distinct(a.PARTITION_NAME) FROM INFORMATION_SCHEMA.PARTITIONS a, ghlpoc.'+tab+" "+"b"+" "+"WHERE a.TABLE_NAME='" +tab+"'"+" "+ "and" + " " + "b.ENDDATE<'"+ days_before+"'" +  ";"
-                sql='SELECT distinct(a.PARTITION_NAME) FROM INFORMATION_SCHEMA.PARTITIONS a, ghlpoc.CCB_SV_SVSEEK b WHERE a.TABLE_NAME=' + "'" + tab+"'" + "and" + " " + "b.ENDDATE<'"+ days_before+"'" +";"
+                sql='SELECT distinct(a.PARTITION_NAME) FROM INFORMATION_SCHEMA.PARTITIONS a, <db_name>.'+tab+" "+"b"+" "+"WHERE a.TABLE_NAME='" +tab+"'"+" "+ "and" + " " + "b.ENDDATE<'"+ days_before+"'" +  ";"
                 print sql
                 cursor.execute(sql)
                 data = cursor.fetchall()
