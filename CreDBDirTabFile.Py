@@ -17,9 +17,9 @@ import sys
 DBLIST = '/mysql/admin/scripts/dblist.txt'
 
 HOST = 'localhost'
-USER = 'ghlpoc'
-CODE = 'ghlpoc123#'
-SOCKET = '/data/ghlpoc/data/ghlpoc.sock'
+USER = '<id>'
+CODE = '<code>'
+SOCKET = '/data/mysql/<db_name>.sock'
 
 connect = MySQLdb.connect(host = HOST, user = USER, passwd = CODE, unix_socket = SOCKET)
 cursor = connect.cursor()
@@ -33,7 +33,7 @@ for db in content:
     ####
     #### Create directory for each database at /mysql/admin/scripts/dbdir/
     ####
-    dirpath = "/mysql/admin/scripts/dbdir/" + db
+    dirpath = "/mysql/admin/dbdir/" + db
     os.mkdir(dirpath);
     os.chdir(dirpath);
     ####
