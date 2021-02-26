@@ -26,3 +26,5 @@ os.system(bkupcmd)
 #### Email backup log to admin
 mailcmd = "mailx -s 'MEB Backup Log for <hostname> ' " +  mail_list + "< "+ logfile
 os.system(mailcmd)
+#### End of the script
+####
