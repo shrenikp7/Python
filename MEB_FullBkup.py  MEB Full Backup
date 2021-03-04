@@ -16,7 +16,7 @@ host = socket.gethostname()
 date = time.strftime('%Y%b%d-%H%M%S')
 date1 = time.strftime('%Y-%m-%d.%H-%M-%S')
 backupdir="--backup-dir=/tmp/backup" + date
-backupimage="--backup-image=/mysql/mtsdbasfs/"+host+".mts.backup.mbi_" + date
+backupimage="--backup-image=/mysql/<NFS>/"+host+".mts.backup.mbi_" + date
 image="backup-to-image --compress"
 logfile="/tmp/backup"+date+'/meta/MEB_'+date1+'.log'
 mail_list="shrenik.parekh\@<domain>.com"
