@@ -22,9 +22,12 @@ logfile="/tmp/backup"+date+'/meta/MEB_'+date1+'.log'
 mail_list="shrenik.parekh\@<domain>.com"
 base_path = '/mysql/<NFS>'
 
+#### Full backup execution
+####
 bkupcmd = "/bin/mysqlbackup" + " " + backupdir + " " + backupimage + " " + image
+#### Execute backup command and check backup command status also
 bkupresult=os.system(bkupcmd)
-
+#### Check Bckup Status 
 if bkupresult ==0:
  mailcmd = "mailx -s 'MEB Backup Log ' " +  mail_list + "< "+ logfile
  os.system(mailcmd)
