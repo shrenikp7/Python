@@ -1,0 +1,33 @@
+#!/usr/bin/python
+
+## Script Name : MEB_IncreBkup.py
+## Script Purpose: Execute incremental backup of the MySQL Enterprise, compress it, check status, if script fail send notification, and email backup log
+# Import python libraries
+import os
+import time
+import datetime
+import pipes
+import socket
+
+host = socket.gethostname()
+date = time.strftime('%Y%b%d-%H%M%S')
+date1 = time.strftime('%Y-%m-%d.%H-%M-%S')
+incremental="--incremental --incremental-base=history:last_backup"
+backupdir="--backup-dir=/tmp/backup" + date
+backupimage="--backup-image=/mysql/NFS"+host+".mts.incre_backup.bi_" + date
+image="backup-to-image --compress"
+logfile="/tmp/backup"+date+'/meta/MEB_'+date1+'.log'
+mail_list="shrenik.parekh\@<domain>.com"
+
+#### Execute Incremental Backup
+bkupcmd = "/bin/mysqlbackup" + " " + incremental + " " + backupdir + " " + backupimage + " " + image
+#### Execute backup and check status of the backup command
+bkupresult=os.system(bkupcmd)
+
+if bkupresult ==0:
+ mailcmd = "mailx -s 'MEB Incremental Backup Log ' " +  mail_list + "< "+ logfile
+ os.system(mailcmd)
+else:
+ mailcmd = "mailx -s 'MEB Incremental Backup FAILED ' " +  mail_list
+ os.system(mailcmd)
+# End of the script
