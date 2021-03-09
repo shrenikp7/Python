@@ -21,6 +21,7 @@ image="backup-to-image --compress"
 logfile="/tmp/backup"+date+'/meta/MEB_'+date1+'.log'
 mail_list="shrenik\@<Domain>.com"
 message ='"mysqlbackup completed OK"'
+base_path = '/mysql/NFS'
 
 cmd1 = "/bin/mysqlbackup" + " " + backupdir + " " + backupimage + " " + image
 p1 = subprocess.Popen(cmd1, stdin=None, stdout=subprocess.PIPE, shell=True)
