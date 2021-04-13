@@ -1,6 +1,6 @@
 
 
-[mysql@uls-dd-msqdeng1 scripts]$ cat dump.py
+[mysql]$ cat dump.py
 
 #!/usr/bin/python
 
